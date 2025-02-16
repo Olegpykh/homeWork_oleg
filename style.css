@@ -1,0 +1,53 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+.inp_btn {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  border: 1px black solid;
+  border-radius: 1rem;
+  padding: 30px;
+  background-color: beige;
+  width: 30%;
+}
+.container1 {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.elememt {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px black solid;
+  border-radius: 1rem;
+  height: 20rem;
+  width: 15rem;
+  background-color: rgb(223, 206, 232);
+}
+#photo {
+  margin: 0 auto;
+  border-radius: 1.5rem;
+  width: 13.5rem;
+  height: 10rem;
+}
+#title {
+  margin: 0 auto;
+
+
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: start;
+  padding-left: 0.4rem;
+}
