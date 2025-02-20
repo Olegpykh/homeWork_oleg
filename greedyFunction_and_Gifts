@@ -1,0 +1,104 @@
+// У вас есть список людей, которым нужно подарить подарки.
+// У каждого человека есть предпочтения по подаркам, выраженные в виде списка желаемых подарков.
+// Каждый подарок можно подарить только одному человеку. Ваша задача - осчастливить как можно больше людей.
+
+const people = [
+  {
+    name: 'Oleg',
+    preferences: ['laptop', 'headphones', 'book', 'coffee maker'],
+  },
+  {
+    name: 'Anna',
+    preferences: ['phone', 'gaming console', 'keyboard', 'bike'],
+  },
+  {
+    name: 'Ivan',
+    preferences: ['book', 'smartwatch', 't-shirt', 'camera'],
+  },
+  {
+    name: 'Roman',
+    preferences: ['book', 'guitar', 'video games', 'drone'],
+  },
+  {
+    name: 'Anton',
+    preferences: ['book', 'phone', 'backpack', 'jewelry'],
+  },
+];
+
+const fnForPeoplesGift = (arr) => {
+  const schonGeschenkteGifts = [];
+  const personWhoDenGiftErhalten = [];
+
+  arr.forEach((person) => {
+    for (let gift of person.preferences) {
+      if (!schonGeschenkteGifts.includes(gift)) {
+        schonGeschenkteGifts.push(gift);
+        personWhoDenGiftErhalten.push({
+          ImyaCheloweka: person.name,
+          podarok: gift,
+        });
+        break;
+      }
+    }
+  });
+
+  return personWhoDenGiftErhalten;
+};
+
+console.log(fnForPeoplesGift(people));
+
+//  1 уровень сложности:  Задача: вызов лифта
+//  В доме n лифтов, у каждого лифта своя скорость, измеряемая в сек/этаж (секунд на один этаж).
+//  Реализовать алгоритм отправки лифта, который приедет быстрее всего.
+//  Алгоритм будет применяться в домах разной этажности.
+//  Алгоритм будет применяться в домах с количеством > 2 лифтов
+//  Пример:
+//   в доме 19 этажей
+//   работают лифт А, лифт В и лифт C
+//   лифт А находится на 4 этаже и движется со скоростью 3 сек/этаж.
+//   лифт В находится на 8 этаже и движется со скоростью 2 сек/этаж.
+//   лифт C находится на 5 этаже и движется со скоростью 2 сек/этаж.
+//   На вход: 1 (вызываем на первый этаж)
+//   результат: отправляем лифт С
+
+const elevators = [
+  { name: 'A', currentFloor: 4, speed: 3 }, // лифт A
+  { name: 'B', currentFloor: 8, speed: 2 }, // лифт B
+  { name: 'C', currentFloor: 5, speed: 2 }, // лифт C
+  { name: 'D', currentFloor: 15, speed: 2 }, // лифт C
+];
+
+const getTimeToTarget = (elevator, targetFloor) => {
+  const timeToTarget =
+    Math.abs(elevator.currentFloor - targetFloor) * elevator.speed;
+  return timeToTarget;
+};
+
+const findFastestElevator = (target) => {
+  let fastestElevator = elevators[0];
+
+  for (let i = 1; i < elevators.length; i++) {
+    let currentElevator = elevators[i];
+    let currentElevatorTime = getTimeToTarget(currentElevator, target);
+    let fastestElevatorTime = getTimeToTarget(fastestElevator, target);
+    if (currentElevatorTime < fastestElevatorTime) {
+      fastestElevator = currentElevator;
+    }
+  }
+  return fastestElevator;
+};
+
+
+const elevatorA = elevators.find((el) => el.name === 'A');
+const elevatorB = elevators.find((el) => el.name === 'B');
+const elevatorC = elevators.find((el) => el.name === 'C');
+const elevatorD = elevators.find((el) => el.name === 'D');
+
+console.log(' Das ist die Fahrstuhl A :', getTimeToTarget(elevatorA, 32));
+console.log(' Das ist die Fahrstuhl B :', getTimeToTarget(elevatorB, 32));
+console.log(' Das ist die Fahrstuhl C :', getTimeToTarget(elevatorC, 32));
+console.log(' Das ist die Fahrstuhl D : ', getTimeToTarget(elevatorD, 32));
+console.log("-----------------------------------------------------------------");
+
+
+console.log(findFastestElevator(32));
