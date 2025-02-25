@@ -1,0 +1,189 @@
+//  1 уровень сложности: 1. Создайте класс Car с свойствами mark (марка),
+//   model (модель) и year (год выпуска). Добавьте метод age(),
+//   который вычисляет возраст автомобиля (на основе текущего года).
+
+class Car {
+  constructor(mark, model, year, price) {
+    this.marka = mark;
+    this.modelle = model;
+    this.jahr = year;
+    this.price = `${price} Euro`;
+  }
+
+  age() {
+    const currentYear = new Date().getFullYear();
+    const age = currentYear - this.jahr;
+    return age;
+  }
+}
+
+const bmw = new Car('bmw', 'AMG_007', 2012, 30000);
+bmw.age();
+
+console.log(bmw);
+console.log(bmw.age());
+
+// Модифицируйте класс Person, добавив новое свойство email и метод
+// change_email(newEmail),который меняет email только если новый email
+// содержит символ "@" и ".", иначе выбрасывает исключение.
+
+class Person {
+  sport = 'tennis';
+  constructor(name, lastName, age = 28, email) {
+    this.username = name;
+    this.lastame = lastName;
+    this.age = age;
+    this.email = email;
+  }
+
+  setName(name, city) {
+    this.username = name;
+  }
+  change_Email(newEmail) {
+    if (newEmail.includes('.') && newEmail.includes('@')) {
+      this.email = newEmail;
+    } else {
+      throw new Error('This email does not exist');
+    }
+  }
+}
+
+const person1 = new Person('oleg', 'pykhonin', 30, 'opykh@gmail.com');
+console.log(person1);
+person1.change_Email('olegggggggg@gmail.com');
+person1.sport = 'football';
+console.log(person1);
+
+// Создайте класс Library, который хранит статический массив книг.
+//  Каждая книга – это объект с свойствами title и author.
+// Добавьте статический метод addBook(book), который добавляет книгу в библиотеку,
+//  и статический метод listBooks(), который выводит список книг в консоль.
+
+class Library {
+  static books = [];
+  static addBook(book) {
+    if (book.title && book.author) {
+      Library.books.push(book);
+    }
+  }
+
+  static listBooks() {
+    if (Library.books.length === 0) {
+      console.log('There are no books');
+    }
+    Library.books.forEach((book) => {
+      console.log(` ${book.title} написана этим автором : ${book.author}`);
+    });
+  }
+}
+
+Library.addBook({ title: 'Fight club', author: 'Palanik' });
+Library.addBook({ title: 'Three sisters', author: 'Chechov' });
+console.log(Library.books);
+const book2 = Library.books[1];
+console.log(book2.title);
+Library.listBooks();
+
+// Создайте класс Rectangle с приватными свойствами #width и #height.
+// Реализуйте геттеры и сеттеры для этих свойств, чтобы ширина и высота могли
+//  устанавливаться только положительными числами. Добавьте метод area(), который
+//   возвращает площадь прямоугольника.
+
+class Rectangle {
+  #width;
+  #height;
+  constructor(width, height) {
+    this.#width = width;
+    this.#height = height;
+  }
+  get width() {
+    return this.#width;
+  }
+  get height() {
+    return this.#height;
+  }
+  set width(value) {
+    if (value > 0) {
+      this.#width = value;
+    } else {
+      console.log(` ${value} is not positive`);
+    }
+  }
+  set height(value) {
+    if (value > 0) {
+      this.#height = value;
+    } else {
+      console.log(` ${value} is not positive`);
+    }
+  }
+  area() {
+    return this.#height * this.#width;
+  }
+}
+
+const rect = new Rectangle(5, 19);
+
+console.log(rect.height);
+console.log(rect.width);
+console.log(rect.area());
+rect.height = -10;
+
+// Создайте класс BankAccount с приватным свойством #balance.
+// Реализуйте методы для депозита и снятия средств. Добавьте геттер
+//  для получения текущего баланса. При попытке снять сумму, большую чем баланс,
+//  выбрасывайте исключение. Затем создайте статический метод, который ведёт учёт
+//   всех созданных счетов (например, массив accounts) и статический метод для
+//   расчёта общего баланса всех счетов.
+
+class BankAccount {
+  #balance;
+
+  static accounts = [];
+
+  constructor(startValue = 0) {
+    this.#balance = startValue;
+    BankAccount.accounts.push(this);
+  }
+
+  deposit(value) {
+    if (value > 0) {
+      this.#balance += value;
+    } else {
+      throw new Error('Deposit must be > 0');
+    }
+  }
+
+  withdraw(value) {
+    if (value < 0) {
+      throw new Error('Withdraw must be > 0');
+    }
+    if (value > this.#balance) {
+      throw new Error('Not enought money');
+    } else {
+      this.#balance -= value;
+    }
+  }
+
+  get balance() {
+    return this.#balance;
+  }
+
+  static allMoney() {
+    return BankAccount.accounts.reduce(
+      (total, account) => total + account.balance,
+      0
+    );
+  }
+}
+
+const account1 = new BankAccount(1500);
+const account2 = new BankAccount(2000);
+const account3 = new BankAccount(500);
+
+account1.deposit(2500);
+account2.withdraw(1000);
+account3.deposit(500);
+
+console.log(account1.balance);
+
+console.log(BankAccount.allMoney());
